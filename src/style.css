@@ -1,0 +1,2179 @@
+/* ============================================================
+   LUNA ALLIANCE — PREMIUM REDESIGN
+   Aesthetic: Deep-space command center, luxury gaming UI
+   Fonts: Cinzel (display) + Rajdhani (body)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  /* Core palette */
+  --void:       #020409;
+  --deep:       #050b18;
+  --space:      #080f22;
+  --navy:       #0c1630;
+  --slate:      #111e3a;
+  --card:       #0e1a36;
+  --card2:      #131f3e;
+  --glass:      rgba(14, 26, 62, 0.72);
+
+  /* Text */
+  --text:       #e8eeff;
+  --text2:      #b8c6e8;
+  --muted:      #6b7fa8;
+  --faint:      #3a4a6a;
+
+  /* Accent */
+  --moon:       #c8d8ff;
+  --blue:       #3b8eff;
+  --blue2:      #1a6eff;
+  --cyan:       #00d4ff;
+  --purple:     #7c4dff;
+  --violet:     #a855f7;
+  --gold:       #f4c842;
+  --amber:      #ff9d00;
+  --danger:     #ff3d5a;
+  --green:      #00e87a;
+
+  /* Gradients */
+  --grad-main:  linear-gradient(135deg, var(--blue2), var(--purple));
+  --grad-gold:  linear-gradient(135deg, #f4c842, #ff9d00);
+  --grad-glow:  linear-gradient(135deg, rgba(59,142,255,.25), rgba(124,77,255,.25));
+
+  /* Borders */
+  --border:     rgba(59, 142, 255, 0.15);
+  --border2:    rgba(255, 255, 255, 0.06);
+  --border3:    rgba(59, 142, 255, 0.35);
+
+  /* Shadows */
+  --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px var(--border);
+  --shadow-glow: 0 0 40px rgba(59, 142, 255, 0.2), 0 0 80px rgba(124, 77, 255, 0.1);
+  --shadow-lg:   0 24px 80px rgba(0, 0, 0, 0.7);
+
+  /* Radii */
+  --r-sm: 10px;
+  --r:    16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+
+  /* Fonts */
+  --font-display: 'Cinzel', serif;
+  --font-body:    'Rajdhani', sans-serif;
+  --font-ui:      'Exo 2', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--text);
+  background-color: var(--void);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(59,142,255,0.12), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(124,77,255,0.14), transparent),
+    radial-gradient(ellipse 40% 60% at 50% 100%, rgba(0,212,255,0.05), transparent);
+  min-height: 100vh;
+}
+
+/* Star field background layer */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(200,216,255,0.6), transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(200,216,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(200,216,255,0.4), transparent),
+    radial-gradient(1px 1px at 70% 50%, rgba(200,216,255,0.3), transparent),
+    radial-gradient(1px 1px at 10% 80%, rgba(200,216,255,0.4), transparent),
+    radial-gradient(1px 1px at 90% 60%, rgba(200,216,255,0.3), transparent),
+    radial-gradient(1px 1px at 55% 20%, rgba(200,216,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 30% 55%, rgba(200,216,255,0.35), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   BASE RESETS & TYPOGRAPHY
+   ============================================================ */
+
+h1, h2, h3, h4, h5, h6 { margin: 0; line-height: 1.1; }
+p { margin: 0; }
+a { color: var(--blue); text-decoration: none; }
+
+.hidden { display: none !important; }
+
+/* ============================================================
+   TOP BAR / NAVIGATION
+   ============================================================ */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 32px;
+  height: 72px;
+  background: rgba(5, 11, 24, 0.88);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 0 rgba(59,142,255,0.08), 0 8px 32px rgba(0,0,0,0.4);
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  background: var(--grad-main);
+  box-shadow: 0 0 20px rgba(59,142,255,0.4), 0 0 40px rgba(124,77,255,0.2);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.brand h1 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  text-transform: uppercase;
+}
+
+.brand p {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+/* Nav */
+nav {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Auth section */
+.auth {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+button, .button-link {
+  border: 0;
+  border-radius: var(--r-sm);
+  padding: 10px 18px;
+  color: var(--text);
+  background: rgba(255,255,255,0.06);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before, .button-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+button:hover::before, .button-link:hover::before {
+  opacity: 1;
+}
+
+button:hover, .button-link:hover {
+  transform: translateY(-1px);
+}
+
+button:active, .button-link:active {
+  transform: translateY(0);
+}
+
+/* Nav buttons */
+.nav {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  transition: all 0.2s ease;
+}
+
+.nav:hover {
+  color: var(--text);
+  background: rgba(59,142,255,0.1);
+  border-color: var(--border);
+}
+
+.nav.active {
+  color: var(--text);
+  background: var(--grad-main);
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(59,142,255,0.3);
+}
+
+/* Primary button */
+.primary {
+  background: var(--grad-main);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(59,142,255,0.3);
+}
+
+.primary:hover {
+  box-shadow: 0 6px 28px rgba(59,142,255,0.5);
+  filter: brightness(1.1);
+}
+
+/* Ghost button */
+.ghost {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  color: var(--text2);
+}
+
+.ghost:hover {
+  background: rgba(59,142,255,0.1);
+  border-color: var(--border3);
+  color: var(--text);
+}
+
+/* Discord */
+.discord {
+  background: #5865f2;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(88,101,242,0.35);
+}
+
+.discord:hover {
+  box-shadow: 0 6px 24px rgba(88,101,242,0.55);
+}
+
+/* Google */
+.google {
+  background: #fff;
+  color: #1a1a2e;
+  border-color: transparent;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.google:hover {
+  background: #f0f4ff;
+}
+
+/* Danger */
+.danger {
+  background: rgba(255,61,90,0.1);
+  color: #ff6b84;
+  border: 1px solid rgba(255,61,90,0.25);
+}
+
+.danger:hover {
+  background: rgba(255,61,90,0.2);
+  border-color: rgba(255,61,90,0.5);
+  color: #ff8fa0;
+}
+
+/* Admin tab */
+.admin-tab {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  padding: 10px 20px;
+  border-radius: var(--r-sm);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.admin-tab:hover {
+  color: var(--text2);
+  border-color: var(--border);
+}
+
+.admin-tab.active {
+  background: var(--grad-main);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(59,142,255,0.25);
+}
+
+/* ============================================================
+   USER BOX
+   ============================================================ */
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text2);
+}
+
+.user-box img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(59,142,255,0.4);
+}
+
+/* ============================================================
+   MAIN LAYOUT
+   ============================================================ */
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 100px;
+}
+
+.page {
+  display: none;
+  max-width: 980px;
+  margin: 0 auto;
+  animation: pageIn 0.4s ease;
+}
+
+.page.active { display: block; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  padding: 48px;
+  border-radius: var(--r-xl);
+  background: linear-gradient(135deg, rgba(14,26,62,0.95) 0%, rgba(8,15,34,0.98) 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card), var(--shadow-glow);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(59,142,255,0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(124,77,255,0.1), transparent 70%);
+  pointer-events: none;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+}
+
+.tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h2 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 900;
+  line-height: 1.0;
+  margin: 18px 0 14px;
+  background: linear-gradient(135deg, #e8f0ff 30%, var(--blue), var(--violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.01em;
+}
+
+.hero p {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  color: var(--text2);
+  line-height: 1.65;
+  max-width: 520px;
+  font-weight: 400;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  align-items: center;
+}
+
+/* Status Card */
+.status-card {
+  background: rgba(8,15,34,0.7);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  align-self: start;
+}
+
+.status-card::before {
+  content: 'STATUS';
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--faint);
+}
+
+.status-card h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.status-card div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border2);
+}
+
+.status-card div:last-child { border-bottom: 0; }
+
+.status-card span {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.status-card strong {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   PAGE HEADERS
+   ============================================================ */
+
+.page-head {
+  margin: 0 0 32px;
+}
+
+.page-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--text), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.page-head p {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  color: var(--muted);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.title {
+  margin: 40px 0 20px;
+}
+
+.title, h3.title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+
+/* ============================================================
+   FEED / GRID
+   ============================================================ */
+
+.feed, .forum-list {
+  display: grid;
+  gap: 20px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+#latestEvents, #latestEvents.grid {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
+}
+
+#latestEvents .latest-update-card {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+/* ============================================================
+   EVENT / CONTENT CARDS (Cinematic Style)
+   ============================================================ */
+
+/* ── Cinematic cards (Events feed + Forum posts) ── */
+.event-card,
+.forum-post-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  max-width: 860px;
+  min-height: 280px;
+  aspect-ratio: 16/8;
+  margin: 0 auto;
+  border-radius: var(--r-xl);
+  background: var(--card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: var(--shadow-card);
+}
+
+.event-card:hover,
+.forum-post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 60px rgba(0,0,0,0.7), 0 0 0 1px var(--border3), var(--shadow-glow);
+  border-color: var(--border3);
+}
+
+.event-card .event-image,
+.forum-post-card .event-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--r-xl);
+  opacity: 0.8;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.event-card:hover .event-image,
+.forum-post-card:hover .event-image {
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+
+.event-card::after,
+.forum-post-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(2,4,9,0.96) 0%,
+    rgba(5,11,24,0.82) 40%,
+    rgba(5,11,24,0.45) 70%,
+    rgba(5,11,24,0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  border-radius: var(--r-xl);
+}
+
+.event-content {
+  position: relative;
+  z-index: 2;
+  padding: 28px 32px;
+  max-width: 66%;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ── Latest Update cards — stacked (image top, text below) ── */
+.latest-update-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: var(--r-xl);
+  background: var(--card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: var(--shadow-card);
+}
+
+.latest-update-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 60px rgba(0,0,0,0.7), 0 0 0 1px var(--border3), var(--shadow-glow);
+  border-color: var(--border3);
+}
+
+.latest-update-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.latest-update-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.85;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  display: block;
+}
+
+.latest-update-card:hover .latest-update-image {
+  transform: scale(1.04);
+  opacity: 1;
+}
+
+.latest-update-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  background: linear-gradient(135deg, var(--slate), var(--navy));
+  opacity: 0.6;
+}
+
+.latest-update-image-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--card));
+  pointer-events: none;
+}
+
+.latest-update-content {
+  padding: 16px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.event-meta {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.event-meta::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+
+.event-card h3,
+.forum-post-card h3,
+.latest-update-content h3 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.event-body,
+.latest-update-content p {
+  white-space: pre-wrap;
+  color: var(--text2);
+  line-height: 1.5;
+  font-family: var(--font-ui);
+  font-size: clamp(13px, 1.8vw, 16px);
+  margin: 0;
+  font-weight: 400;
+}
+
+.event-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 4px;
+}
+
+
+/* ============================================================
+   FORUM CATEGORY CARDS
+   ============================================================ */
+
+/* Forum card — image fills the bordered box, text sits underneath */
+.forum-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: var(--r-xl);
+  background: var(--card);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.forum-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 60px rgba(0,0,0,0.7), 0 0 0 1px var(--border3), var(--shadow-glow);
+  border-color: var(--border3);
+}
+
+/* The image area — full width, fixed height, contained inside the border */
+.forum-card .forum-thumb-wrap {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.forum-card .forum-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.85;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+  display: block;
+}
+
+.forum-card:hover .forum-thumb {
+  transform: scale(1.04);
+  opacity: 1;
+}
+
+/* Subtle bottom fade so the image blends into the text area */
+.forum-card .forum-thumb-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--card));
+  pointer-events: none;
+}
+
+/* Text area below the image */
+.forum-card .forum-info {
+  position: relative;
+  z-index: 2;
+  padding: 18px 24px 22px;
+  width: 100%;
+}
+
+/* Remove the old full-card overlay — no longer needed */
+.forum-card::after { display: none; }
+
+.forum-author {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.forum-info h3 {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.5vw, 26px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  margin: 6px 0 6px;
+}
+
+.forum-info p {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.forum-info small {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+  margin-top: 6px;
+}
+
+.forum-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border2);
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+
+/* ============================================================
+   PANELS & FORMS
+   ============================================================ */
+
+.panel {
+  background: rgba(11, 19, 42, 0.85);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
+
+.panel h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.panel label {
+  display: block;
+  margin: 20px 0 8px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Inputs */
+input, textarea, select {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: rgba(5,11,24,0.8);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 400;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(59,142,255,0.15);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--faint);
+}
+
+textarea {
+  min-height: 200px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+input[type=file] {
+  padding: 12px;
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7fa8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.msg {
+  margin-top: 12px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+/* ============================================================
+   SWITCH / CHECKBOX ROWS
+   ============================================================ */
+
+.switch-row {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: rgba(5,11,24,0.6);
+  cursor: pointer;
+  margin-top: 8px !important;
+}
+
+.switch-row span {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text2);
+}
+
+.switch-row input[type=checkbox] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--blue);
+  margin: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   COMMENTS
+   ============================================================ */
+
+.comments {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border2);
+}
+
+.comment {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border2);
+}
+
+.comment:last-of-type { border-bottom: 0; }
+
+.comment p {
+  font-family: var(--font-ui);
+  color: var(--text2);
+  margin: 8px 0 4px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.comment small {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.comment-form,
+.forum-comment-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.comment-form input,
+.forum-comment-form input {
+  flex: 1;
+  background: rgba(5,11,24,0.7);
+}
+
+.comment-form button,
+.forum-comment-form button {
+  background: var(--grad-main);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 20px;
+  flex-shrink: 0;
+}
+
+.comment-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+
+.type-badge, .role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.role-badge {
+  color: var(--role-color);
+  background: color-mix(in srgb, var(--role-color) 15%, transparent);
+  border-color: color-mix(in srgb, var(--role-color) 40%, transparent);
+}
+
+.admin-type {
+  color: var(--gold);
+  background: rgba(244,200,66,0.1);
+  border-color: rgba(244,200,66,0.3);
+}
+
+.member-type {
+  color: var(--blue);
+  background: rgba(59,142,255,0.1);
+  border-color: rgba(59,142,255,0.25);
+}
+
+/* ============================================================
+   DETAIL VIEWS
+   ============================================================ */
+
+.event-full {
+  display: grid;
+  gap: 28px;
+}
+
+.event-full-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-full h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 50px);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  background: linear-gradient(135deg, var(--text), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.event-full h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.event-full-body {
+  white-space: pre-wrap;
+  color: var(--text2);
+  line-height: 1.75;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.detail-comments-block {
+  margin-top: 8px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+/* Image carousel */
+.image-count { display: none !important; }
+
+.image-carousel {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: transparent;
+  display: block;
+  padding: 0;
+}
+
+.event-full .carousel-image,
+.event-full .event-full-image,
+.event-full .image-carousel img {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 80vh !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 0 auto !important;
+  border-radius: var(--r-lg) !important;
+  background: transparent !important;
+}
+
+.image-gallery {
+  display: grid;
+  gap: 14px;
+}
+
+.image-gallery img {
+  width: 100%;
+  max-height: 780px;
+  object-fit: contain;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+
+.carousel-image { cursor: pointer; }
+
+.image-carousel-actions {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin-top: 14px !important;
+  width: 100% !important;
+  position: static !important;
+  transform: none !important;
+}
+
+.image-carousel-actions button,
+.image-carousel-actions .ghost {
+  width: 140px !important;
+  min-width: 140px !important;
+  height: 48px !important;
+  border-radius: 14px !important;
+  justify-content: center !important;
+}
+
+/* ============================================================
+   MEMBERS
+   ============================================================ */
+
+.members {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.member-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgba(11,19,42,0.7);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.member-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border3);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5), var(--shadow-glow);
+}
+
+.member-card img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(59,142,255,0.3);
+  flex-shrink: 0;
+}
+
+.member-line {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.member-card .small {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* Member detail */
+#memberDetail { padding: 24px; }
+
+#backToMembersBtn {
+  display: inline-flex;
+  width: max-content;
+  margin-bottom: 28px;
+}
+
+.member-detail-card {
+  display: grid;
+  gap: 14px;
+  padding-top: 6px;
+}
+
+.member-detail-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  margin: 8px 0 16px;
+  border: 3px solid rgba(59,142,255,0.4);
+  box-shadow: 0 0 24px rgba(59,142,255,0.2);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.detail-grid span {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-self: start;
+  padding-top: 2px;
+}
+
+.detail-grid strong {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text2);
+  word-break: break-all;
+}
+
+/* ============================================================
+   ADMIN PANEL
+   ============================================================ */
+
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.admin-section { display: none; }
+.admin-section.active { display: block; }
+
+.soft-line {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
+}
+
+.mini-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.mini-item {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: rgba(5,11,24,0.6);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.application-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.application-item strong {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.application-item span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.application-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Admin row (admins list) */
+.admin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.admin-info img,
+.admin-avatar-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.admin-avatar-fallback {
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.06);
+  color: var(--muted);
+  font-weight: 900;
+  font-size: 16px;
+}
+
+.admin-info strong {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.admin-info small {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+.admin-row .remove-admin {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  font-size: 12px;
+}
+
+/* ============================================================
+   MAIL
+   ============================================================ */
+
+.mail-full { display: grid; gap: 16px; }
+
+.mail-image {
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  display: block;
+}
+
+.mail-body {
+  white-space: pre-wrap;
+  color: var(--text2);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.message-item {
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.message-item:hover {
+  border-color: var(--border3);
+}
+
+.message-item.unread {
+  border-left: 3px solid var(--blue);
+  padding-left: calc(32px - 3px);
+}
+
+.message-item h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.message-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+#messageDetail .ghost {
+  margin-bottom: 20px;
+}
+
+/* ============================================================
+   MISC UTILITIES
+   ============================================================ */
+
+.small {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.login-note {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--muted);
+  text-align: center;
+  padding: 24px;
+}
+
+h4 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin: 24px 0 12px;
+}
+
+/* Clickable elements */
+.clickable-title { cursor: pointer; }
+.clickable-title:hover { opacity: 0.85; }
+
+/* Back buttons */
+#backToEventsBtn,
+#backToForumPostsBtn {
+  margin-bottom: 24px;
+}
+
+/* Form spacers */
+#eventTitle,#eventContent,#eventImage,
+#forumTitle,#forumDescription,#forumImage,
+#postTitle,#postMessage,#postImage,
+#editForumTitle,#editForumDescription,#editForumImage,
+#discordJoinLink,#newAdminId {
+  margin-bottom: 4px;
+}
+
+#eventForm .primary,
+#forumCategoryForm .primary,
+#forumPostForm .primary,
+#editCategoryForm .primary {
+  margin-top: 24px;
+}
+
+#categoryAdminActions { margin-bottom: 32px !important; }
+
+#editCategoryForm:not(.editing),
+#forumPostForm:not(.creating) { display: none !important; }
+
+#editCategoryForm.editing,
+#forumPostForm.creating { display: block !important; }
+
+#showForumPostFormBtn { margin-left: auto; }
+#editForumPostForm { margin-top: 24px; }
+
+#removePostImageSelect,
+#removeEventImageSelect,
+#removeForumImageSelect {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   MAIL BADGE
+   ============================================================ */
+
+#mailUnreadBadge {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cyan);
+  background: rgba(0,212,255,0.12);
+  border: 1px solid rgba(0,212,255,0.25);
+  border-radius: 999px;
+  padding: 1px 6px;
+  margin-left: 2px;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--void); }
+::-webkit-scrollbar-thumb { background: rgba(59,142,255,0.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(59,142,255,0.45); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .topbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 14px 20px;
+    gap: 10px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 28px 24px;
+  }
+
+  .members {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .auth { width: 100%; }
+}
+
+@media (max-width: 700px) {
+  main { padding: 24px 16px 80px; }
+
+  .page { max-width: 100%; }
+
+  .event-card,
+  .forum-post-card,
+  .latest-update-card {
+    max-width: 100%;
+  }
+
+  .latest-update-image-wrap {
+    height: 180px;
+  }
+
+  .latest-update-content {
+    padding: 14px 18px 18px;
+  }
+
+  .event-content {
+    max-width: 85%;
+    padding: 20px;
+  }
+
+  .event-card h3,
+  .forum-post-card h3,
+  .latest-update-content h3 {
+    font-size: 22px;
+  }
+
+  .event-body,
+  .latest-update-content p {
+    font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .forum-card {
+    max-width: 100%;
+  }
+
+  .forum-card .forum-thumb-wrap {
+    height: 200px;
+  }
+
+  .forum-card .forum-info {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px 20px 20px;
+  }
+
+  .forum-info h3 { font-size: 20px; }
+
+  .members { grid-template-columns: 1fr 1fr; }
+
+  .detail-grid { grid-template-columns: 1fr; }
+
+  .panel { padding: 20px; }
+
+  .hero { padding: 22px 18px; }
+
+  #showForumPostFormBtn { margin-left: 0; }
+
+  .image-carousel-actions button,
+  .image-carousel-actions .ghost {
+    width: 120px !important;
+    min-width: 120px !important;
+    height: 44px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .event-card,
+  .forum-post-card { height: 200px; }
+
+  .latest-update-image-wrap { height: 150px; }
+
+  .forum-card .forum-thumb-wrap { height: 160px; }
+
+  .forum-card .forum-info { max-width: 100%; }
+
+  .members { grid-template-columns: 1fr; }
+}
+
+
+/* ============================================================
+   FINAL CLEAN LEARNING CENTRE FIX
+   Main Learning Centre page = category cards only.
+   Opened category page = Back button + posts only.
+   Removes unwanted bottom category title/admin buttons on category list.
+   ============================================================ */
+
+/* hidden must always win */
+.hidden,
+#forumBackWrap.hidden,
+#forumPostsWrap.hidden,
+#forumCategories.hidden,
+#forumPostDetail.hidden,
+#forumPostForm.hidden,
+#editCategoryForm.hidden{
+  display:none!important;
+}
+
+/* Main Learning Centre category list */
+body:not(.forum-viewing-category) #forumBackWrap,
+body:not(.forum-viewing-category) #forumPostsWrap,
+body:not(.forum-viewing-category) #categoryAdminActions,
+body:not(.forum-viewing-category) #editCategoryForm,
+body:not(.forum-viewing-category) #forumPostForm{
+  display:none!important;
+}
+
+/* When on main Learning Centre page, show only category cards */
+body:not(.forum-viewing-category) #forumCategories{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:20px!important;
+}
+
+/* Opened category page */
+body.forum-viewing-category #forumCategories{
+  display:none!important;
+}
+
+body.forum-viewing-category #forum > .page-head:first-of-type{
+  display:none!important;
+}
+
+body.forum-viewing-category #forumBackWrap{
+  display:block!important;
+  width:100%!important;
+  clear:both!important;
+  margin:0 0 24px!important;
+  padding:0!important;
+}
+
+body.forum-viewing-category #forumPostsWrap{
+  display:block!important;
+  width:100%!important;
+  clear:both!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+body.forum-viewing-category #forumPostsWrap > .page-head{
+  display:block!important;
+  margin:0 0 26px!important;
+  padding:0!important;
+}
+
+/* Category cards clickable */
+.forum-card{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+}
+
+.forum-card .forum-thumb-wrap,
+.forum-card .forum-thumb,
+.forum-card .forum-info,
+.forum-card .forum-info *{
+  pointer-events:none!important;
+}
+
+/* Buttons and links inside cards still work */
+.forum-card button,
+.forum-card a,
+.forum-post-card button,
+.forum-post-card a{
+  pointer-events:auto!important;
+}
+
+/* Forum posts inside a category use image-top, text-bottom layout */
+.forum-post-card,
+.event-card.forum-post-card{
+  display:flex!important;
+  flex-direction:column!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  overflow:hidden!important;
+}
+
+.forum-post-card::before,
+.forum-post-card::after,
+.event-card.forum-post-card::before,
+.event-card.forum-post-card::after{
+  display:none!important;
+  content:none!important;
+}
+
+.forum-post-card .event-image,
+.event-card.forum-post-card .event-image{
+  position:relative!important;
+  inset:auto!important;
+  display:block!important;
+  width:100%!important;
+  height:220px!important;
+  min-height:220px!important;
+  max-height:220px!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border-radius:var(--r-xl) var(--r-xl) 0 0!important;
+  opacity:1!important;
+  transform:none!important;
+  flex:0 0 auto!important;
+  pointer-events:none!important;
+}
+
+.forum-post-card .event-content,
+.event-card.forum-post-card .event-content{
+  position:relative!important;
+  z-index:2!important;
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  padding:18px 22px 22px!important;
+  background:rgba(14,26,54,.98)!important;
+  border-radius:0 0 var(--r-xl) var(--r-xl)!important;
+}
+
+/* Mobile */
+@media(max-width:700px){
+  body.forum-viewing-category #forumBackWrap{
+    margin-bottom:22px!important;
+  }
+
+  .forum-post-card .event-image,
+  .event-card.forum-post-card .event-image{
+    height:185px!important;
+    min-height:185px!important;
+    max-height:185px!important;
+  }
+}
+
+
+
+/* ============================================================
+   NEXT UPDATE — PAGE STYLE FOR FORUM ACTIONS + EVENT CARD FIX
+   ============================================================ */
+
+/* Home latest updates, events and forum post cards match stacked style */
+.latest-update-card,
+.event-card:not(.forum-post-detail),
+.forum-post-card{
+  display:flex!important;
+  flex-direction:column!important;
+  height:auto!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  overflow:hidden!important;
+  width:100%!important;
+  max-width:860px!important;
+  margin:0 auto 22px!important;
+  border-radius:var(--r-xl)!important;
+  background:var(--card)!important;
+  border:1px solid var(--border)!important;
+  box-shadow:var(--shadow-card)!important;
+}
+
+.latest-update-card::before,
+.latest-update-card::after,
+.event-card::before,
+.event-card::after,
+.forum-post-card::before,
+.forum-post-card::after{
+  display:none!important;
+  content:none!important;
+  pointer-events:none!important;
+}
+
+/* Fixed image area on top for Events and Forum Posts */
+.latest-update-image-wrap,
+.event-card:not(.forum-post-detail) .event-image-wrap,
+.forum-post-card .event-image-wrap{
+  position:relative!important;
+  display:block!important;
+  width:100%!important;
+  height:220px!important;
+  min-height:220px!important;
+  max-height:220px!important;
+  overflow:hidden!important;
+  border-radius:var(--r-xl) var(--r-xl) 0 0!important;
+  background:rgba(5,11,24,.75)!important;
+}
+
+.latest-update-image,
+.event-card:not(.forum-post-detail) .event-image,
+.forum-post-card .event-image{
+  position:relative!important;
+  inset:auto!important;
+  display:block!important;
+  width:100%!important;
+  height:220px!important;
+  min-height:220px!important;
+  max-height:220px!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border-radius:var(--r-xl) var(--r-xl) 0 0!important;
+  opacity:1!important;
+  transform:none!important;
+  flex:0 0 auto!important;
+  pointer-events:none!important;
+}
+
+/* If image is inside a wrap */
+.latest-update-image-wrap .latest-update-image,
+.event-image-wrap .event-image{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  max-height:100%!important;
+  border-radius:0!important;
+}
+
+.latest-update-content,
+.event-card:not(.forum-post-detail) .event-content,
+.forum-post-card .event-content{
+  position:relative!important;
+  z-index:2!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  padding:18px 22px 22px!important;
+  background:rgba(14,26,54,.98)!important;
+  border-radius:0 0 var(--r-xl) var(--r-xl)!important;
+  gap:8px!important;
+}
+
+/* Buttons/cards clickable */
+.event-card,
+.forum-post-card,
+.latest-update-card{
+  pointer-events:auto!important;
+  cursor:pointer!important;
+}
+.event-card img,
+.forum-post-card img,
+.latest-update-card img{
+  pointer-events:none!important;
+}
+.event-card button,
+.forum-post-card button,
+.latest-update-card button,
+.event-card a,
+.forum-post-card a,
+.latest-update-card a{
+  pointer-events:auto!important;
+}
+
+/* Own-page views used for create/edit/detail style screens */
+.forum-subpage{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:980px;
+  margin:0 auto;
+  padding:0;
+}
+
+.forum-subpage.hidden{
+  display:none!important;
+}
+
+.forum-subpage .panel,
+.forum-subpage form,
+.forum-action-page{
+  width:100%;
+  max-width:860px;
+  margin:0 auto 24px!important;
+}
+
+.forum-action-page .page-head{
+  margin-bottom:24px!important;
+}
+
+.forum-action-page .back-action{
+  margin-bottom:24px!important;
+}
+
+/* When opening a forum action page, hide normal category posts/categories */
+body.forum-action-page-open #forumCategories,
+body.forum-action-page-open #forumPostsWrap,
+body.forum-action-page-open #forumBackWrap,
+body.forum-action-page-open #forumPostDetail{
+  display:none!important;
+}
+
+/* When opening event edit page, hide event list/detail behind it */
+body.event-edit-page-open #eventsFeed,
+body.event-edit-page-open #eventDetail,
+body.event-edit-page-open #eventForm{
+  display:none!important;
+}
+
+/* Mobile */
+@media(max-width:700px){
+  .latest-update-image-wrap,
+  .event-card:not(.forum-post-detail) .event-image-wrap,
+  .forum-post-card .event-image-wrap,
+  .latest-update-image,
+  .event-card:not(.forum-post-detail) .event-image,
+  .forum-post-card .event-image{
+    height:185px!important;
+    min-height:185px!important;
+    max-height:185px!important;
+  }
+
+  .latest-update-content,
+  .event-card:not(.forum-post-detail) .event-content,
+  .forum-post-card .event-content{
+    padding:16px 18px 20px!important;
+  }
+}
+
+
+/* ==========================================================
+   REAL FINAL FIX — stacked cards and own-page forms
+   ========================================================== */
+.hidden{display:none!important;}
+
+/* Events match Home Latest Updates */
+#eventsList .event-card{display:flex!important;flex-direction:column!important;height:auto!important;min-height:0!important;aspect-ratio:auto!important;overflow:hidden!important;background:var(--card)!important;border:1px solid var(--border)!important;border-radius:var(--r-xl)!important;box-shadow:var(--shadow-card)!important;}
+#eventsList .event-card::before,#eventsList .event-card::after{display:none!important;content:none!important;}
+#eventsList .event-card .event-image{position:relative!important;inset:auto!important;display:block!important;width:100%!important;height:220px!important;min-height:220px!important;max-height:220px!important;object-fit:cover!important;object-position:center!important;border-radius:var(--r-xl) var(--r-xl) 0 0!important;opacity:1!important;transform:none!important;pointer-events:none!important;}
+#eventsList .event-card .event-content{position:relative!important;z-index:2!important;width:100%!important;max-width:100%!important;height:auto!important;padding:18px 22px 22px!important;background:rgba(14,26,54,.98)!important;border-radius:0 0 var(--r-xl) var(--r-xl)!important;display:flex!important;flex-direction:column!important;gap:8px!important;}
+
+/* Forum post cards match Home Latest Updates */
+#forumPosts .forum-post-card{display:flex!important;flex-direction:column!important;height:auto!important;min-height:0!important;aspect-ratio:auto!important;overflow:hidden!important;background:var(--card)!important;border:1px solid var(--border)!important;border-radius:var(--r-xl)!important;box-shadow:var(--shadow-card)!important;}
+#forumPosts .forum-post-card::before,#forumPosts .forum-post-card::after{display:none!important;content:none!important;}
+#forumPosts .forum-post-card .event-image{position:relative!important;inset:auto!important;display:block!important;width:100%!important;height:220px!important;min-height:220px!important;max-height:220px!important;object-fit:cover!important;object-position:center!important;border-radius:var(--r-xl) var(--r-xl) 0 0!important;opacity:1!important;transform:none!important;pointer-events:none!important;}
+#forumPosts .forum-post-card .event-content{position:relative!important;z-index:2!important;width:100%!important;max-width:100%!important;height:auto!important;padding:18px 22px 22px!important;background:rgba(14,26,54,.98)!important;border-radius:0 0 var(--r-xl) var(--r-xl)!important;display:flex!important;flex-direction:column!important;gap:8px!important;}
+
+/* Own-page mode hides the background content */
+body.forum-action-page-open #forumPostsWrap,
+body.forum-action-page-open #forumPostDetail,
+body.forum-action-page-open #forumCategories{display:none!important;}
+body.forum-action-page-open #forumCreatePostPage:not(.hidden),
+body.forum-action-page-open #forumEditPostPage:not(.hidden){display:block!important;}
+body.event-edit-page-open #eventsList,
+body.event-edit-page-open #eventDetail{display:none!important;}
+body.event-edit-page-open #eventEditPage:not(.hidden){display:block!important;}
+.forum-subpage{position:relative;z-index:5;width:100%;max-width:980px;margin:0 auto;padding:0 0 40px;}
+.forum-action-page{width:100%;max-width:860px;margin:0 auto!important;}
+.forum-action-page .page-head{margin:24px 0!important;}
+
+/* Forum detail visible */
+body.forum-post-detail-open #forumPosts{display:none!important;}
+body.forum-post-detail-open #forumPostDetail{display:block!important;}
+
+@media(max-width:700px){
+  #eventsList .event-card .event-image,#forumPosts .forum-post-card .event-image{height:185px!important;min-height:185px!important;max-height:185px!important;}
+}
+
+
+/* Hide accidental duplicate Back to Posts buttons, keeping the first one */
+#forumPostDetail button[id="backToForumPostListBtn"] ~ button[id="backToForumPostListBtn"],
+#forumPostDetail .ghost[id="backToForumPostListBtn"] ~ .ghost[id="backToForumPostListBtn"]{
+  display:none!important;
+}
