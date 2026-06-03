@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LuNa Alliance | Last Asylum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/src/style.css" />
+</head>
+
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">☾</div>
+    <div>
+      <h1>LuNa Alliance</h1>
+      <p>Last Asylum Hub</p>
+    </div>
+  </div>
+
+  <nav>
+    <button class="nav active" data-page="home">Home</button>
+    <button class="nav" data-page="events">Events</button>
+    <button class="nav" data-page="forum">Learning Centre</button>
+    <button class="nav logged-only hidden role-apply-link" data-page="roleApply">Role Apply</button>
+    <button id="mailNavBtn" class="nav logged-only hidden" data-page="messages">Mail <span id="mailUnreadBadge">(0)</span></button>
+    <button class="nav admin-only hidden" data-page="members">Members</button>
+    <button class="nav admin-only hidden" data-page="admin">Admin</button>
+  </nav>
+
+  <div class="auth">
+    <div id="userBox" class="user-box hidden"></div>
+    <button id="loginBtn" class="discord">Sign in with Discord</button>
+    <button id="googleLoginBtn" class="google">Sign in with Google</button>
+    <button id="logoutBtn" class="ghost hidden">Logout</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== HOME ===== -->
+  <section id="home" class="page active">
+    <div class="hero">
+      <div>
+        <span class="tag">Last Asylum Alliance</span>
+        <h2>Welcome to LuNa</h2>
+        <p>Keep up to date with alliance events, announcements, rules, war prep, learning centre posts and community updates.</p>
+        <div class="actions">
+          <a id="discordJoinBtn" class="button-link discord hidden" href="#" target="_blank" rel="noopener">Join Discord</a>
+          <button class="ghost jump" data-page="events">View Events</button>
+          <button class="ghost jump" data-page="forum">Learning Centre</button>
+          <button class="ghost jump logged-only hidden role-apply-link" data-page="roleApply">Role Apply</button>
+        </div>
+      </div>
+      <div class="status-card">
+        <h3>Alliance Status</h3>
+        <div><span>Alliance</span><strong>LuNa</strong></div>
+        <div><span>Game</span><strong>Last Asylum</strong></div>
+        <div><span>Events</span><strong id="eventCount">0</strong></div>
+        <div><span>Members</span><strong id="memberCount">0</strong></div>
+        <div><span>Forum Topics</span><strong id="forumCount">0</strong></div>
+      </div>
+    </div>
+
+    <h3 class="title">Latest Updates</h3>
+    <div id="latestEvents" class="grid"></div>
+  </section>
+
+  <!-- ===== EVENTS ===== -->
+  <section id="events" class="page">
+    <div class="page-head">
+      <h2>Alliance Events</h2>
+      <p>Leader posts, announcements and event updates.</p>
+    </div>
+    <div id="eventsList" class="feed"></div>
+
+    <div id="eventDetail" class="panel hidden">
+      <button id="backToEventsBtn" class="ghost" type="button">← Back to Events</button>
+      <div id="eventDetailContent"></div>
+    </div>
+
+    <form id="editEventForm" class="panel hidden">
+      <h3>Edit Event</h3>
+      <label>Event title</label>
+      <input id="editEventTitle" required />
+      <label>Event details</label>
+      <textarea id="editEventContent" required></textarea>
+      <label>Remove existing image</label>
+      <select id="removeEventImageSelect">
+        <option value="">Do not remove image</option>
+      </select>
+      <label>Add replacement images (optional)</label>
+      <input id="editEventImage" type="file" accept="image/*" multiple />
+      <div style="height:20px;"></div>
+      <button class="primary" type="submit">Save Event</button>
+      <button id="cancelEditEventBtn" class="ghost" type="button">Cancel</button>
+      <p id="editEventMsg" class="msg"></p>
+    </form>
+  </section>
+
+  <!-- ===== FORUM ===== -->
+  <section id="forum" class="page">
+    <div class="page-head">
+      <h2>Learning Centre</h2>
+      <p>Open a category, then members can post guides, images, questions and tips inside it.</p>
+    </div>
+
+    <div id="forumBackWrap" class="hidden">
+      <button id="forumBackBtn" class="ghost">← Back to Categories</button>
+    </div>
+
+    <div id="forumCategories" class="forum-list"></div>
+
+    <div id="forumPostsWrap" class="hidden">
+      <div class="page-head">
+        <h2 id="forumCategoryTitle">Forum Category</h2>
+        <p id="forumCategoryDescription"></p>
+      </div>
+
+      <div id="categoryAdminActions" class="event-actions">
+        <button id="editCategoryBtn" class="ghost admin-only hidden">Edit Category</button>
+        <button id="deleteCategoryBtn" class="danger admin-only hidden">Delete Category</button>
+        <button id="showForumPostFormBtn" class="primary logged-only hidden" type="button">+ Create Post</button>
+      </div>
+
+      <form id="editCategoryForm" class="panel edit-panel hidden">
+        <h3>Edit Forum Category</h3>
+        <label>Forum title</label>
+        <input id="editForumTitle" required />
+        <label>Description</label>
+        <textarea id="editForumDescription" required></textarea>
+        <label>Remove existing image</label>
+        <select id="removeForumImageSelect">
+          <option value="">Do not remove image</option>
+        </select>
+        <label>Add replacement images (optional)</label>
+        <input id="editForumImage" type="file" accept="image/*" multiple />
+        <div style="height:20px;"></div>
+        <button class="primary" type="submit">Save Category</button>
+        <button id="cancelEditCategoryBtn" class="ghost" type="button">Cancel</button>
+        <p id="editForumMsg" class="msg"></p>
+      </form>
+
+      <form id="forumPostForm" class="panel create-post-panel hidden">
+        <h3>Create Forum Post</h3>
+        <label>Post title</label>
+        <input id="postTitle" required placeholder="Example: Best PVP Setup" />
+        <label>Message</label>
+        <textarea id="postMessage" required placeholder="Write your guide, question or update..."></textarea>
+        <label>Images (optional)</label>
+        <input id="postImage" type="file" accept="image/*" multiple />
+        <div style="height:20px;"></div>
+        <button class="primary" type="submit">Create Post</button>
+        <button id="cancelForumPostBtn" class="ghost" type="button">Cancel</button>
+        <p id="forumPostMsg" class="msg"></p>
+      </form>
+
+      <form id="editForumPostForm" class="panel hidden">
+        <h3>Edit Forum Post</h3>
+        <label>Post title</label>
+        <input id="editPostTitle" required />
+        <label>Message</label>
+        <textarea id="editPostMessage" required></textarea>
+        <label>Existing image action</label>
+        <select id="removePostImageSelect">
+          <option value="">Replace all images if new images are chosen</option>
+        </select>
+        <label>Add replacement images (optional)</label>
+        <input id="editPostImage" type="file" accept="image/*" multiple />
+        <div style="height:20px;"></div>
+        <button class="primary" type="submit">Save Post</button>
+        <button id="cancelEditPostBtn" class="ghost" type="button">Cancel</button>
+        <p id="editPostMsg" class="msg"></p>
+      </form>
+
+      <div id="forumPosts" class="feed"></div>
+
+      <div id="forumPostDetail" class="panel hidden">
+        <button id="backToForumPostsBtn" class="ghost" type="button">← Back to Posts</button>
+        <div id="forumPostDetailContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROLE APPLY ===== -->
+  <section id="roleApply" class="page">
+    <div class="page-head">
+      <h2>Role Apply</h2>
+      <p>Apply for your in-game alliance role. Admins will check it and approve it.</p>
+    </div>
+
+    <div id="roleApplyDone" class="panel hidden"></div>
+
+    <form id="roleApplyForm" class="panel logged-only hidden">
+      <h3>Alliance Role Application</h3>
+      <label>In-game username</label>
+      <input id="applyGameUsername" required placeholder="Your Last Asylum name" />
+      <label>Alliance role</label>
+      <select id="applyRole" required>
+        <option value="">Select role</option>
+        <option value="R1">R1</option>
+        <option value="R2">R2</option>
+        <option value="R3">R3</option>
+        <option value="R4">R4</option>
+      </select>
+      <div style="height:20px;"></div>
+      <button class="primary" type="submit">Submit Application</button>
+      <p id="roleApplyMsg" class="msg"></p>
+    </form>
+
+    <p class="login-note">Sign in to apply for an alliance role.</p>
+  </section>
+
+  <!-- ===== MESSAGES ===== -->
+  <section id="messages" class="page">
+    <div class="page-head">
+      <h2>Mail</h2>
+      <p>Updates about new events, forum categories and role approvals.</p>
+    </div>
+    <div id="messagesList" class="feed"></div>
+
+    <div id="messageDetail" class="panel hidden">
+      <button id="backToMailBtn" class="ghost" type="button">← Back to Mail</button>
+      <div id="messageDetailContent"></div>
+    </div>
+  </section>
+
+  <!-- ===== MEMBERS ===== -->
+  <section id="members" class="page admin-only hidden">
+    <div class="page-head">
+      <h2>Members</h2>
+      <p>Discord and Google users signed into the LuNa hub.</p>
+    </div>
+    <div id="membersList" class="members"></div>
+
+    <div id="memberDetail" class="panel hidden">
+      <button id="backToMembersBtn" class="ghost" type="button">← Back to Members</button>
+      <div id="memberDetailContent"></div>
+    </div>
+  </section>
+
+  <!-- ===== ADMIN ===== -->
+  <section id="admin" class="page">
+    <div class="page-head">
+      <h2>Admin Panel</h2>
+      <p>Post events, create forum categories, approve roles and manage site settings.</p>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-admin-tab="admin-events" type="button">Events</button>
+      <button class="admin-tab" data-admin-tab="admin-forum" type="button">Forum</button>
+      <button class="admin-tab" data-admin-tab="admin-roles" type="button">Roles</button>
+      <button class="admin-tab" data-admin-tab="admin-settings" type="button">Settings</button>
+    </div>
+
+    <div id="admin-events" class="admin-section active">
+      <form id="eventForm" class="panel">
+        <h3>Create Event</h3>
+        <label>Event title</label>
+        <input id="eventTitle" required placeholder="Example: Server War Prep" />
+        <label>Event details</label>
+        <textarea id="eventContent" required placeholder="Write the event information here..."></textarea>
+        <label>Images (optional)</label>
+        <input id="eventImage" type="file" accept="image/*" multiple />
+        <div style="height:32px;"></div>
+        <button class="primary" type="submit">Post Event</button>
+        <p id="adminMsg" class="msg"></p>
+      </form>
+    </div>
+
+    <div id="admin-forum" class="admin-section">
+      <form id="forumCategoryForm" class="panel">
+        <h3>Create Forum Category</h3>
+        <label>Forum title</label>
+        <input id="forumTitle" required placeholder="Example: ⚔️ PVP Academy" />
+        <label>Description</label>
+        <textarea id="forumDescription" required placeholder="Explain what users should post here..."></textarea>
+        <label>Category image (optional)</label>
+        <input id="forumImage" type="file" accept="image/*" multiple />
+        <div style="height:32px;"></div>
+        <button class="primary" type="submit">Create Forum Category</button>
+        <p id="forumAdminMsg" class="msg"></p>
+      </form>
+    </div>
+
+    <div id="admin-roles" class="admin-section">
+      <div class="panel">
+        <h3>Role Applications</h3>
+        <p class="small">Approve role requests after checking them in game.</p>
+        <div id="roleApplicationsList" class="mini-list"></div>
+      </div>
+
+      <div class="panel">
+        <h3>Manage Member Roles</h3>
+        <p class="small">Select a member, then add, edit, or remove their alliance role.</p>
+        <label>Select member</label>
+        <select id="roleMemberSelect"></select>
+        <label>Alliance role</label>
+        <select id="manualRoleSelect">
+          <option value="">No role</option>
+          <option value="R1">R1</option>
+          <option value="R2">R2</option>
+          <option value="R3">R3</option>
+          <option value="R4">R4</option>
+        </select>
+        <div style="height:20px;"></div>
+        <button id="manualRoleBtn" class="primary" type="button">Apply Role</button>
+        <button id="removeRoleBtn" class="danger" type="button">Remove Role</button>
+        <p id="manualRoleMsg" class="msg"></p>
+      </div>
+    </div>
+
+    <div id="admin-settings" class="admin-section">
+      <div class="panel">
+        <h3>Settings</h3>
+
+        <label>Discord join link</label>
+        <input id="discordJoinLink" placeholder="https://discord.gg/yourinvite" />
+        <p class="small">This saves automatically and controls the Join Discord button.</p>
+
+        <label>Member emoji</label>
+        <input id="memberEmojiInput" placeholder="👤" maxlength="8" />
+
+        <label class="switch-row">
+          <span>Show Member emoji</span>
+          <input id="memberEmojiEnabledInput" type="checkbox" />
+        </label>
+
+        <label>Manager emoji</label>
+        <input id="managerEmojiInput" placeholder="👑" maxlength="8" />
+
+        <label class="switch-row">
+          <span>Show Manager emoji</span>
+          <input id="managerEmojiEnabledInput" type="checkbox" />
+        </label>
+
+        <h4>Role Colours</h4>
+        <p class="small">Set custom hex colours for the R1–R4 role tags.</p>
+
+        <label>R1 colour</label>
+        <input id="roleR1ColorInput" placeholder="#66bbff" />
+
+        <label>R2 colour</label>
+        <input id="roleR2ColorInput" placeholder="#22c55e" />
+
+        <label>R3 colour</label>
+        <input id="roleR3ColorInput" placeholder="#a855f7" />
+
+        <label>R4 colour</label>
+        <input id="roleR4ColorInput" placeholder="#f59e0b" />
+
+        <p id="settingsMsg" class="msg"></p>
+
+        <hr class="soft-line">
+
+        <h3>Admins</h3>
+        <p class="small">Paste a Member's user_id below to grant admin access.</p>
+
+        <label>Member user_id</label>
+        <input id="newAdminId" placeholder="Paste member UUID here" />
+        <div style="height:16px;"></div>
+        <button id="addAdminBtn" class="primary" type="button">Add Admin</button>
+        <p id="adminAddMsg" class="msg"></p>
+
+        <h4>Current Admins</h4>
+        <div id="adminsList" class="mini-list"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== TEMPLATES ===== -->
+
+<template id="eventTemplate">
+  <article class="event-card">
+    <img class="event-image hidden" alt="Event image" />
+    <div class="event-content">
+      <div class="event-meta"></div>
+      <h3></h3>
+      <p class="event-body"></p>
+      <div class="event-actions">
+        <button class="ghost comment-toggle">View Event</button>
+        <button class="ghost edit-event admin-only hidden">Edit</button>
+        <button class="danger delete-event admin-only hidden">Delete</button>
+      </div>
+      <div class="comments hidden">
+        <div class="comments-list"></div>
+        <form class="comment-form logged-only hidden">
+          <input placeholder="Write a comment..." required />
+          <button>Send</button>
+        </form>
+      </div>
+    </div>
+  </article>
+</template>
+
+<template id="forumCategoryTemplate">
+  <article class="forum-card">
+    <div class="forum-thumb-wrap">
+      <img class="forum-thumb hidden" alt="Forum image" />
+    </div>
+    <div class="forum-info">
+      <div class="forum-author">LuNa Learning Centre</div>
+      <h3></h3>
+      <p></p>
+      <small></small>
+    </div>
+  </article>
+</template>
+
+<template id="forumPostTemplate">
+  <article class="event-card forum-post-card">
+    <img class="event-image hidden" alt="Post image" />
+    <div class="event-content">
+      <div class="event-meta"></div>
+      <h3></h3>
+      <p class="event-body"></p>
+      <div class="event-actions">
+        <button class="ghost forum-comment-toggle">View Post</button>
+        <button class="ghost edit-forum-post hidden">Edit</button>
+        <button class="danger delete-forum-post hidden">Delete</button>
+      </div>
+      <div class="comments hidden">
+        <div class="forum-comments-list"></div>
+        <form class="forum-comment-form logged-only hidden">
+          <input placeholder="Write a comment..." required />
+          <button>Send</button>
+        </form>
+      </div>
+    </div>
+  </article>
+</template>
+
+<script type="module" src="/src/main.js"></script>
+
+<!-- Forum page overlays added by ChatGPT update -->
+<div id="forumCreatePostPage" class="forum-subpage hidden"></div>
+<div id="forumEditPostPage" class="forum-subpage hidden"></div>
+<div id="eventEditPage" class="forum-subpage hidden"></div>
+
+</body>
+</html>
